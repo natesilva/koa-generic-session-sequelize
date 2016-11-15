@@ -10,6 +10,10 @@ It stores session data in a database defined by you, using the [Sequelize](http:
 
 It has been tested with SQLite, MySQL, PostgreSQL, and Azure Cloud SQL (Microsoft SQL Server).
 
+### Installation
+
+`npm install --save koa-generic-session-sequelize`
+
 ### Example
 
 ```js
