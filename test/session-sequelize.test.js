@@ -27,6 +27,10 @@ var config = {
   //   pool: {
   //     max: 50,
   //     min: 1
+  //   },
+  //   define: {
+  //     charset: 'utf8mb4',
+  //     collate: 'utf8mb4_unicode_ci  '
   //   }
   // },
 

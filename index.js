@@ -26,7 +26,7 @@ var SequelizeStore = module.exports = function (sequelize, options) {
   }, options || {});
 
   this.Model = this.sequelize.define(this.options.modelName, {
-    id: { type: this.sequelize.Sequelize.STRING, primaryKey: true },
+    id: { type: this.sequelize.Sequelize.STRING(100), primaryKey: true },
     data: this.sequelize.Sequelize.TEXT,
     expires: this.sequelize.Sequelize.BIGINT
   }, {
