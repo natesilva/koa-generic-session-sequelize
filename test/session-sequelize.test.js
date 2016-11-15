@@ -70,7 +70,7 @@ var config = {
 describe('test/session-sequelize.test.js', function () {
   if (config.sqlite && config.sqlite.deleteAfterTests) {
     after(function () {
-      this.timeout(5000);
+      this.timeout(5000);   // eslint-disable-line no-invalid-this
       // give SQLite time to release its lock on the file, then delete it
       setTimeout(function() {
         if (fs.existsSync(config.sqlite.storage)) {
@@ -78,7 +78,6 @@ describe('test/session-sequelize.test.js', function () {
             fs.unlinkSync(config.sqlite.storage);
           } catch (err) {
             // ignore: on Windows we sometimes can't unlink the temp file
-            console.log('!!!', err);
           }
         }
       }, 2000);
