@@ -1,4 +1,4 @@
-/* global it, beforeEach */
+/* global it, beforeEach, after */
 
 var should = require('should');
 var uid = require('uid-safe');
@@ -13,6 +13,10 @@ exports.sharedTests = function (config) {
 
   beforeEach(function () {
     sid = uid.sync(24);
+  });
+
+  after(function() {
+    sequelize.close();
   });
 
   it('should set and get ok', function () {

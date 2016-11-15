@@ -66,9 +66,18 @@ var config = {
 describe('test/session-sequelize.test.js', function () {
   if (config.sqlite && config.sqlite.deleteAfterTests) {
     after(function () {
-      if (fs.existsSync(config.sqlite.storage)) {
-        fs.unlinkSync(config.sqlite.storage);
-      }
+      this.timeout(5000);
+      // give SQLite time to release its lock on the file, then delete it
+      setTimeout(function() {
+        if (fs.existsSync(config.sqlite.storage)) {
+          try {
+            fs.unlinkSync(config.sqlite.storage);
+          } catch (err) {
+            // ignore: on Windows we sometimes can't unlink the temp file
+            console.log('!!!', err);
+          }
+        }
+      }, 2000);
     });
   }
 
