@@ -19,7 +19,7 @@ It has been tested with SQLite, MySQL, PostgreSQL, and Azure Cloud SQL (Microsof
 ```js
 var session = require('koa-generic-session');
 var Sequelize = require('sequelize');
-var sequelizeStore = require('..');
+var sequelizeStore = require('koa-generic-session-sequelize');
 var koa = require('koa');
 
 // set up Sequelize in the usual manner, or, for a quick example:
