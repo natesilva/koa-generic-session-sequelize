@@ -73,7 +73,9 @@ exports.sharedTests = function (config) {
           store.set(sid, sess, 30000)
             .then(function () { return store.get(sid); })
             .then(function (data) { sess.should.deepEqual(data); })
-            .then(function () { })
+            .then(function () { return store.destroy(sid); })
+            .then(function () { return store.get(sid); })
+            .then(function (data) { should.not.exist(data); })
         );
       })(uid.sync(24));
     }
