@@ -4,9 +4,9 @@ Store Koa sessions in a database using Sequelize.
 
 ## Usage
 
-This session storage provider works with [koa-generic-session](https://github.com/koajs/generic-session) (a generic session middleware for koa).
+This session storage provider works with [koa-generic-session](https://github.com/koajs/generic-session) (session middleware for Koa) and with [koa-session-minimal](https://github.com/longztian/koa-session-minimal) (session middleware for Koa 2).
 
-It stores session data in a database defined by you, using the [Sequelize](http://docs.sequelizejs.com/) ORM. Sequelize 3.x is supported. (Sequelize 4.x works too, but may break in the future, as 4.x is pre-release software.)
+It stores session data in a database defined by you, using the [Sequelize](http://docs.sequelizejs.com/) ORM. Sequelize 3.x is supported. Sequelize 4.x works, but is pre-release software.
 
 It has been tested with SQLite, MySQL, PostgreSQL, and Azure Cloud SQL (Microsoft SQL Server).
 
@@ -17,12 +17,13 @@ It has been tested with SQLite, MySQL, PostgreSQL, and Azure Cloud SQL (Microsof
 ### Example
 
 ```js
-var session = require('koa-generic-session');
-var Sequelize = require('sequelize');
-var sequelizeStore = require('koa-generic-session-sequelize');
 var koa = require('koa');
+var session = require('koa-generic-session');
+var sequelizeStore = require('koa-generic-session-sequelize');
+var Sequelize = require('sequelize');
 
-// set up Sequelize in the usual manner, or, for a quick example:
+// set up Sequelize in the usual manner
+// for a quick example using the sqlite3 module:
 var sequelize = new Sequelize({
   logging: false,
   dialect: 'sqlite',
@@ -34,7 +35,7 @@ app.keys = ['keys', 'keykeys'];
 app.use(session({
   store: sequelizeStore(
     sequelize,            // pass your sequelize object as the first arg
-    {}                    // pass any config options for sequelizeStore as the second arg
+    {}                    // pass any config options for sequelizeStore as the second arg (see below)
   )
 }));
 
@@ -84,6 +85,6 @@ app.listen(8080);
 
 ### Unit tests
 
-To run the unit tests, clone this Git repository, and run `npm install` in the checkout directory. Then run `npm test`. This will exercise the library against SQLite.
+To run the test suite, clone this repository and run `npm install` in the checkout directory. Then run `npm test`. This will exercise the library against SQLite.
 
-To test against MySQL, PostgreSQL, or SQL Server, edit the file `test/session-sequelize.test.js`, and uncomment the sections referencing those servers, and enter your credentials.
+To test against MySQL, PostgreSQL, or SQL Server, edit `test/session-sequelize.test.js`. Uncomment sections referencing those servers and enter your credentials. The table `_sessions_test` will be created during testing.
