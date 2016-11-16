@@ -17,30 +17,30 @@ It has been tested with SQLite, MySQL, PostgreSQL, and Azure Cloud SQL (Microsof
 ### Example
 
 ```js
-var koa = require('koa');
-var session = require('koa-generic-session');
-var sequelizeStore = require('koa-generic-session-sequelize');
-var Sequelize = require('sequelize');
+const koa = require('koa');
+const session = require('koa-generic-session');
+const SequelizeStore = require('koa-generic-session-sequelize');
+const Sequelize = require('sequelize');
 
 // set up Sequelize in the usual manner
 // for a quick example using the sqlite3 module:
-var sequelize = new Sequelize({
+const sequelize = new Sequelize({
   logging: false,
   dialect: 'sqlite',
   storage: __dirname + '/example.db'
 });
 
-var app = koa();
+const app = koa();
 app.keys = ['keys', 'keykeys'];
 app.use(session({
-  store: sequelizeStore(
+  store: new SequelizeStore(
     sequelize,            // pass your sequelize object as the first arg
     {}                    // pass any config options for sequelizeStore as the second arg (see below)
   )
 }));
 
 function get() {
-  var session = this.session;
+  const session = this.session;
   session.count = session.count || 0;
   session.count++;
   this.body = session.count;
@@ -87,4 +87,4 @@ app.listen(8080);
 
 To run the test suite, clone this repository and run `npm install` in the checkout directory. Then run `npm test`. This will exercise the library against SQLite.
 
-To test against MySQL, PostgreSQL, or SQL Server, edit `test/session-sequelize.test.js`. Uncomment sections referencing those servers and enter your credentials. The table `_sessions_test` will be created during testing.
+To test against MySQL, PostgreSQL, or SQL Server, edit `test/session-sequelize.test.js`. Uncomment sections referencing those servers and enter your credentials. The table `_sess_test` will be created during testing.

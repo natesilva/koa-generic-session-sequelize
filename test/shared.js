@@ -1,21 +1,23 @@
 /* global it, beforeEach, after */
 
-var should = require('should');
-var uid = require('uid-safe');
-var Sequelize = require('sequelize');
-var sequelizeStore = require('../index.js');
+'use strict';
+
+const should = require('should');
+const uid = require('uid-safe');
+const Sequelize = require('sequelize');
+const SequelizeStore = require('../index.js');
 
 exports.sharedTests = function (config) {
-  var sequelize = new Sequelize(config);
-  var store = sequelizeStore(sequelize, { sync: true, tableName: '_sessions_test' });
-  var sess = { hello: 'howdy' };
-  var sid;
+  const sequelize = new Sequelize(config);
+  const store = new SequelizeStore(sequelize, { sync: true, tableName: '_sess_test' });
+  const sess = { hello: 'howdy' };
+  let sid;
 
   beforeEach(function () {
     sid = uid.sync(24);
   });
 
-  after(function() {
+  after(function () {
     sequelize.close();
   });
 
@@ -27,7 +29,7 @@ exports.sharedTests = function (config) {
   });
 
   it('should set and get non-western text', function () {
-    var sess = { japanese: '今日は', hindi: 'नमस्ते', hebrew: 'שלום' };
+    const sess = { japanese: '今日は', hindi: 'नमस्ते', hebrew: 'שלום' };
     return store.set(sid, sess, 5000)
       .then(function () { return store.get(sid); })
       .then(function (data) { sess.should.deepEqual(data); })
@@ -41,7 +43,7 @@ exports.sharedTests = function (config) {
   });
 
   it('should expire', function () {
-    this.timeout(3000);
+    this.timeout(3000);                 // eslint-disable-line no-invalid-this
     return store.set(sid, sess, 1000)
       .then(function () {
         return new Promise(function (resolve) { setTimeout(resolve, 2000); });
@@ -61,10 +63,10 @@ exports.sharedTests = function (config) {
   });
 
   it('should handle lots of requests at once', function () {
-    this.timeout(30000);
+    this.timeout(30000);                // eslint-disable-line no-invalid-this
 
-    var promises = [];
-    for (var i = 0; i < 500; ++i) {
+    const promises = [];
+    for (let i = 0; i < 500; ++i) {
       // use an IIFE to avoid scope issues
       (function (sid) {
         promises.push(
@@ -79,7 +81,7 @@ exports.sharedTests = function (config) {
   });
 
   it('should garbage collect old sessions', function () {
-    this.timeout(30000);
+    this.timeout(30000);                // eslint-disable-line no-invalid-this
     return store.set(sid, sess, 1000)
       .then(function () { return new Promise(resolve => { setTimeout(resolve, 1000); }); })
       .then(function () { return store.get(sid); })
