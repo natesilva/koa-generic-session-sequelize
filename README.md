@@ -87,4 +87,4 @@ app.listen(8080);
 
 To run the test suite, clone this repository and run `npm install` in the checkout directory. Then run `npm test`. This will exercise the library against SQLite.
 
-To test against MySQL, PostgreSQL, or SQL Server, edit `test/session-sequelize.test.js`. Uncomment sections referencing those servers and enter your credentials. The table `_sess_test` will be created during testing.
+To test against MySQL, PostgreSQL, or SQL Server, edit `test/config.js`. Uncomment sections referencing those servers and enter your credentials. The table `_sess_test` will be created during testing.
