@@ -1,24 +1,20 @@
-/* global it, beforeEach, after */
+//
+// Common tests that can apply to any koa-generic-session store provider.
+//
+
+/* global it, beforeEach */
 
 'use strict';
 
 const should = require('should');
 const uid = require('uid-safe');
-const Sequelize = require('sequelize');
-const SequelizeStore = require('../index.js');
 
-exports.sharedTests = function (config) {
-  const sequelize = new Sequelize(config);
-  const store = new SequelizeStore(sequelize, { sync: true, tableName: '_sess_test' });
+module.exports = function (store) {
   const sess = { hello: 'howdy' };
   let sid;
 
   beforeEach(function () {
     sid = uid.sync(24);
-  });
-
-  after(function () {
-    sequelize.close();
   });
 
   it('should set and get ok', function () {
@@ -80,20 +76,5 @@ exports.sharedTests = function (config) {
       })(uid.sync(24));
     }
     return Promise.all(promises);
-  });
-
-  it('should garbage collect old sessions', function () {
-    this.timeout(30000);                // eslint-disable-line no-invalid-this
-    return store.set(sid, sess, 1000)
-      .then(function () { return new Promise(resolve => { setTimeout(resolve, 1000); }); })
-      .then(function () { return store.get(sid); })
-      .then(function (data) { should.not.exist(data); })
-      .then(function () { return sequelize.models.Session.findById(sid); })
-      .then(function (data) { should.exist(data); })
-      .then(function () { return store.gc(); })
-      .then(function (destroyCount) { destroyCount.should.be.aboveOrEqual(1); })
-      .then(function () { return sequelize.models.Session.findById(sid); })
-      .then(function (data) { should.not.exist(data); })
-      ;
   });
 };

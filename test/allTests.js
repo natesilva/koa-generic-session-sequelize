@@ -3,8 +3,11 @@
 'use strict';
 
 const fs = require('fs');
-const shared = require('./shared');
+const commonTests = require('./commonTests');
+const ourTests = require('./ourTests');
 const config = require('./config');
+const Sequelize = require('sequelize');
+const SequelizeStore = require('../index.js');
 
 describe('test/session-sequelize.test.js', function () {
   if (config.sqlite && config.sqlite.deleteAfterTests) {
@@ -23,10 +26,18 @@ describe('test/session-sequelize.test.js', function () {
     });
   }
 
-  // run the shared test suite once for each db engine
+  // run the test suites once for each db engine
   Object.keys(config).forEach(function (dbengine) {
     describe(dbengine, function () {
-      shared.sharedTests(config[dbengine]);
+      const sequelize = new Sequelize(config[dbengine]);
+      const store = new SequelizeStore(sequelize, { sync: true, tableName: '_sess_test' });
+
+      after(function () {
+        sequelize.close();
+      });
+
+      commonTests(store);
+      ourTests(store, sequelize);
     });
   });
 });
