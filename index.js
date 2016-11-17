@@ -46,7 +46,7 @@ class SequelizeStore extends EventEmitter {
   }
 
   waitForSync() {
-    if (this.synced) { return this.sequelize.Promise.resolve(); }
+    if (this.synced) { return Promise.resolve(); }
 
     // wait for sync
     return new Promise((resolve, reject) => {
