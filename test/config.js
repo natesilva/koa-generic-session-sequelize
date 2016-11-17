@@ -31,7 +31,34 @@ config.sqlite = {
 //   },
 //   define: {
 //     charset: 'utf8mb4',
-//     collate: 'utf8mb4_unicode_ci  '
+//     collate: 'utf8mb4_unicode_ci'
+//   }
+// };
+
+// config.mysql_with_replication = {
+//   logging: false,
+//   dialect: 'mysql',
+//   replication: {
+//     write: {
+//       host: '<MYSQL HOST NAME>',
+//       username: '<MYSQL USER NAME>',
+//       password: '<MYSQL PASSWORD>',
+//       database: '<MYSQL DB NAME>'
+//     },
+//     read: {
+//       host: '<MYSQL HOST NAME>',
+//       username: '<MYSQL USER NAME>',
+//       password: '<MYSQL PASSWORD>',
+//       database: '<MYSQL DB NAME>'
+//     }
+//   },
+//   pool: {
+//     max: 50,
+//     min: 1
+//   },
+//   define: {
+//     charset: 'utf8mb4',
+//     collate: 'utf8mb4_unicode_ci'
 //   }
 // };
 
@@ -49,7 +76,33 @@ config.sqlite = {
 //     max: 50,
 //     min: 1
 //   }
-// },
+// };
+
+// config.postgres_with_replication = {
+//   logging: false,
+//   dialect: 'postgres',
+//   replication: {
+//     write: {
+//       host: '<POSTGRESQL HOST NAME>',
+//       username: '<POSTGRESQL USER NAME>',
+//       password: '<POSTGRESQL PASSWORD>',
+//       database: '<POSTGRESQL DB NAME>'
+//     },
+//     read: {
+//       host: '<POSTGRESQL HOST NAME>',
+//       username: '<POSTGRESQL USER NAME>',
+//       password: '<POSTGRESQL PASSWORD>',
+//       database: '<POSTGRESQL DB NAME>'
+//     }
+//   },
+//   dialectOptions: {
+//     ssl: true                   // some PostgreSQL hosts require SSL
+//   },
+//   pool: {
+//     max: 50,
+//     min: 1
+//   }
+// };
 
 // config.mssql = {
 //   logging: false,
@@ -58,6 +111,32 @@ config.sqlite = {
 //   username: '<MSSQL USER NAME>',
 //   password: '<MSSQL PASSWORD>',
 //   database: '<MSSQL DB NAME>',
+//   dialectOptions: {
+//     encrypt: true               // Azure, and some MS SQL servers need this
+//   },
+//   pool: {
+//     max: 50,
+//     min: 1
+//   }
+// };
+
+// config.mssql_with_replication = {
+//   logging: false,
+//   dialect: 'mssql',
+//   replication: {
+//     write: {
+//       host: '<MSSQL HOST NAME>',
+//       username: '<MSSQL USER NAME>',
+//       password: '<MSSQL PASSWORD>',
+//       database: '<MSSQL DB NAME>'
+//     },
+//     read: {
+//       host: '<MSSQL HOST NAME>',
+//       username: '<MSSQL USER NAME>',
+//       password: '<MSSQL PASSWORD>',
+//       database: '<MSSQL DB NAME>'
+//     }
+//   },
 //   dialectOptions: {
 //     encrypt: true               // Azure, and some MS SQL servers need this
 //   },
