@@ -50,7 +50,7 @@ app.use(session({
 
 Sequelize supports replication (configured as `options.replication`). This lets you use one server for writes and another server, or a group of servers, for reads.
 
-However, if there is any lag between the time a write is committed and when it becomes visible on your read server(s), you should not use that configuration for session data. Create a separate Sequelize instance for the session data that does not use replication. If you try to use replication you’ll get inconsistent results, especially when multiple session-mutating requests are made at the same time, as may happen with AJAX-based web apps.
+However, if there is any lag between the time a write is committed and when it becomes visible on your read servers, you should not use that configuration for session data. Create a separate Sequelize instance for the session data that does not use replication. If you try to use replication you’ll get inconsistent results.
 
 This only affects traditional replication. If your replication system has no lag—because servers share an underlying storage layer, as with in-region Amazon Aurora replicas—you may safely use replication.
 
