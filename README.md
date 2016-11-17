@@ -43,7 +43,7 @@ app.use(session({
  - `modelName` - Name of the session model to be registered with Sequelize (default: `Session`)
  - `sync` - Create the sessions table if it doesn’t exist (default: `true`)
  - `syncTimeout` - If `sync` is `true`, how long to wait, in ms, for the sync to complete (default: `3000`)
- - `gcFrequency` - Do garbage collection after approximately this many requests. This deletes old expired sessions from the table. Set to `0` to never do garbage collection. (default: `10000`, or approximately every 10,000 requests)
+ - `gcFrequency` - Do garbage collection after approximately this many requests. This deletes expired session data from the table. Set to `0` to never do garbage collection. (default: `10000`, or approximately every 10,000 requests)
  - `timestamps` - If true, the table will have `updatedAt` and `createdAt` columns. (default: `false`)
 
 ### Replication
