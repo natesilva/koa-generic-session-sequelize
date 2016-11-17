@@ -1,5 +1,5 @@
 //
-// Common tests that can apply to any koa-generic-session store provider.
+// Common tests that only apply to this session store provider.
 //
 
 /* global it, beforeEach */
