@@ -52,8 +52,6 @@ Sequelize supports replication (configured as `options.replication`). This lets 
 
 However, if there is any lag between the time a write is committed and when it becomes visible on your read servers, you should not use that configuration for session data. Create a separate Sequelize instance for the session data that does not use replication.
 
-This only affects traditional replication. If your system has very low replication lag—because servers share an underlying storage layer, as with in-region Amazon Aurora replicas—you may safely use it.
-
 ### Unit tests
 
 To run the test suite, clone this repository and run `npm install` in the checkout directory. Then run `npm test`. This will exercise the library against SQLite.
