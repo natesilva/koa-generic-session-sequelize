@@ -33,7 +33,7 @@ module.exports = function (store) {
 
   it('should handle non-existent session ids', co.wrap(function* () {
     const data = yield store.get('abcdefg');
-    should.not.exist(data);
+    should(data).not.be.ok();
   }));
 
   it('should expire', co.wrap(function* () {
@@ -41,14 +41,14 @@ module.exports = function (store) {
     yield store.set(sid, sess, 1000);
     yield new Promise(function (resolve) { setTimeout(resolve, 2000); });
     const data = yield store.get(sid);
-    should.not.exist(data);
+    should(data).not.be.ok();
   }));
 
   it('should destroy ok', co.wrap(function* () {
     yield store.set(sid, sess, 5000);
     yield store.destroy(sid);
     const data = yield store.get(sid);
-    should.not.exist(data);
+    should(data).not.be.ok();
   }));
 
   it('should handle lots of requests at once', co.wrap(function* () {
@@ -60,7 +60,7 @@ module.exports = function (store) {
       sess.should.deepEqual(data);
       yield store.destroy(sid);
       data = yield store.get(sid);
-      should.not.exist(data);
+      should(data).not.be.ok();
     });
 
     const promises = [];

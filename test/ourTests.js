@@ -23,12 +23,12 @@ module.exports = function (store, sequelize) {
     yield store.set(sid, sess, 1000);
     yield new Promise(resolve => { setTimeout(resolve, 1000); });
     let data = yield store.get(sid);
-    should.not.exist(data);
+    should(data).not.be.ok();
     data = yield sequelize.models.Session.findById(sid);
     should.exist(data);
     const destroyCount = yield store.gc();
     destroyCount.should.be.aboveOrEqual(1);
     data = yield sequelize.models.Session.findById(sid);
-    should.not.exist(data);
+    should(data).not.be.ok();
   }));
 };
