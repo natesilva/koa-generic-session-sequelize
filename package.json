@@ -1,7 +1,7 @@
 {
   "name": "koa-generic-session-sequelize",
   "description": "a Sequelize session store compatible with koa-generic-session",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Nate Silva <nate@natesilva.com>",
   "main": "index.js",
   "scripts": {
