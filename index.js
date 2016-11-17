@@ -29,6 +29,7 @@ class SequelizeStore extends EventEmitter {
       tableName: this.options.tableName,
       timestamps: this.options.timestamps,
       deletedAt: false,
+      paranoid: false,
       indexes: [{ fields: ['expires'] }]
     });
 
@@ -48,7 +49,6 @@ class SequelizeStore extends EventEmitter {
   waitForSync() {
     if (this.synced) { return Promise.resolve(); }
 
-    // wait for sync
     return new Promise((resolve, reject) => {
       const end = Date.now() + this.options.syncTimeout;
       const timerId = setInterval(() => {
@@ -79,7 +79,7 @@ class SequelizeStore extends EventEmitter {
           }
         }
       }).then(row => {
-        if (!row) { return null; }
+        if (!row || !row.data) { return null; }
         return JSON.parse(row.data);
       });
     });
