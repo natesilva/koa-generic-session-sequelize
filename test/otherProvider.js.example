@@ -1,0 +1,16 @@
+//
+// Run the common unit tests against a *different* session store provider (i.e., not
+// this koa-generic-session-sequelize, but something else, such as koa-redis).
+//
+
+/* global describe */
+
+'use strict';
+
+const commonTests = require('./commonTests');
+const StoreProvider = require('koa-redis');     // or whatever store you are testing
+
+describe('test/otherProvider.js', function () {
+  const store = new StoreProvider(/* whatever options the store provider needs */);
+  commonTests(store);
+});

@@ -15,6 +15,7 @@
     "sequelize": "^3.25.0"
   },
   "devDependencies": {
+    "co": "^4.6.0",
     "debug": "^2.3.2",
     "koa": "^1.2.4",
     "koa-generic-session": "^1.11.3",

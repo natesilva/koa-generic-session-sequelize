@@ -9,7 +9,7 @@ const config = require('./config');
 const Sequelize = require('sequelize');
 const SequelizeStore = require('../index.js');
 
-describe('test/session-sequelize.test.js', function () {
+describe('test/allTests.js', function () {
   if (config.sqlite && config.sqlite.deleteAfterTests) {
     after(function () {
       this.timeout(5000);               // eslint-disable-line no-invalid-this
