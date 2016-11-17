@@ -19,6 +19,8 @@ It has been tested with SQLite, MySQL, PostgreSQL, and Microsoft SQL Server.
 Full example in [examples/basic_sqlite.js](examples/basic_sqlite.js).
 
 ```js
+const SequelizeStore = require('koa-generic-session-sequelize');
+
 // set up Sequelize in the usual manner
 // for a quick example using the sqlite3 module:
 const sequelize = new Sequelize({
