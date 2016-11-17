@@ -1,5 +1,5 @@
 //
-// Common tests that only apply to this session store provider.
+// Tests that only apply to this session store provider.
 //
 
 /* global it, beforeEach */
