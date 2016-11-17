@@ -22,6 +22,10 @@ module.exports = function (store) {
     yield store.set(sid, sess, 5000);
     const data = yield store.get(sid);
     sess.should.deepEqual(data);
+    data.value = 42;
+    yield store.set(sid, data, 5000);
+    const data2 = yield store.get(sid);
+    data2.value.should.equal(42);
   }));
 
   it('should set and get non-western text', co.wrap(function* () {
