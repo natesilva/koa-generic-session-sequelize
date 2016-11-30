@@ -12,9 +12,6 @@
     "type": "git",
     "url": "https://github.com/natesilva/koa-generic-session-sequelize.git"
   },
-  "peerDependencies": {
-    "sequelize": "^3.25.0"
-  },
   "devDependencies": {
     "co": "^4.6.0",
     "debug": "^2.3.2",
