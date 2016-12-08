@@ -86,6 +86,12 @@ class SequelizeStore extends EventEmitter {
   }
 
   set(sid, sess, ttl) {
+    if (typeof ttl === 'undefined') {
+      if (sess.cookie && sess.cookie.maxAge) {
+        return this.set(sid, sess, sess.cookie.maxAge);
+      }
+    }
+
     return this.waitForSync().then(() => {
       const expires = Math.floor((Date.now() + (Math.max(ttl, 0) || 0)) / 1000);
       return this.Model.findOrInitialize({ where: { id: sid } })
