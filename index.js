@@ -87,11 +87,11 @@ class SequelizeStore extends EventEmitter {
   }
 
   set(sid, sess, ttl) {
-    if (typeof ttl === 'undefined' || ttl === null) {
+    if (!ttl) {
       if (sess.cookie && sess.cookie.maxAge) {
         // standard expiring cookie
         return this.set(sid, sess, sess.cookie.maxAge);
-      } else {
+      } else if (this.options.browserSessionLifetime > 0) {
         // browser-session cookie
         return this.set(sid, sess, this.options.browserSessionLifetime);
       }

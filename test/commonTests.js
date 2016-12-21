@@ -103,9 +103,25 @@ module.exports = function (store) {
     should(data).not.be.ok();
   }));
 
+  it('should handle requests with undefined ttl', co.wrap(function* () {
+    sess.should.not.have.property('cookie');
+    yield store.set(sid, sess);
+    yield new Promise(function (resolve) { setTimeout(resolve, 1000); });
+    let data = yield store.get(sid);
+    sess.should.deepEqual(data);
+  }));
+
   it('should handle requests with null ttl', co.wrap(function* () {
     sess.should.not.have.property('cookie');
     yield store.set(sid, sess, null);
+    yield new Promise(function (resolve) { setTimeout(resolve, 1000); });
+    let data = yield store.get(sid);
+    sess.should.deepEqual(data);
+  }));
+
+  it('should handle requests with 0 ttl', co.wrap(function* () {
+    sess.should.not.have.property('cookie');
+    yield store.set(sid, sess, 0);
     yield new Promise(function (resolve) { setTimeout(resolve, 1000); });
     let data = yield store.get(sid);
     sess.should.deepEqual(data);
