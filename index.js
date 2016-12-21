@@ -18,7 +18,8 @@ class SequelizeStore extends EventEmitter {
       sync: true,               // if true, create the table if it doesn’t exist
       syncTimeout: 3000,        // if sync is true, how long to wait for initial sync (ms)
       gcFrequency: 10000,       // do garbage collection approx. every this many requests
-      timestamps: false         // if true, add Sequelize updatedAt and createdAt columns
+      timestamps: false,        // if true, add Sequelize updatedAt and createdAt columns
+      browserSessionLifetime: 86400 * 1000  // how long to remember sessions without a TTL
     }, options || {});
 
     this.Model = this.sequelize.define(this.options.modelName, {
@@ -86,9 +87,13 @@ class SequelizeStore extends EventEmitter {
   }
 
   set(sid, sess, ttl) {
-    if (typeof ttl === 'undefined') {
+    if (typeof ttl === 'undefined' || ttl === null) {
       if (sess.cookie && sess.cookie.maxAge) {
+        // standard expiring cookie
         return this.set(sid, sess, sess.cookie.maxAge);
+      } else {
+        // browser-session cookie
+        return this.set(sid, sess, this.options.browserSessionLifetime);
       }
     }
 

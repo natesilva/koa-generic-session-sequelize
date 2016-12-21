@@ -24,6 +24,8 @@ declare namespace koa_generic_session_sequelize {
         /** do garbage collection approximately every this many requests */
         gcFrequency?: number,
         /** if true, the table will have updatedAt and createdAt columns */
-        timestamps?: boolean
+        timestamps?: boolean,
+        /** how long to remember sessions without a TTL (sessions that only last until the browser is closed) */
+        browserSessionLifetime?: number
     }
 }

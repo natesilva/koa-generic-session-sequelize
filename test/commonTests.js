@@ -74,7 +74,7 @@ module.exports = function (store) {
     yield Promise.all(promises);
   }));
 
-  it.only('should handle requests where ttl is in the cookie property', co.wrap(function* () {
+  it('should handle requests where ttl is in the cookie property', co.wrap(function* () {
     // koa-generic-session does this. It documents passing ttl as the 3rd param to set()
     // but actually omits that and expects us to use sess.cookie.maxAge.
     let sess = {
@@ -101,5 +101,13 @@ module.exports = function (store) {
     yield new Promise(function (resolve) { setTimeout(resolve, 2000); });
     data = yield store.get(sid);
     should(data).not.be.ok();
+  }));
+
+  it('should handle requests with null ttl', co.wrap(function* () {
+    sess.should.not.have.property('cookie');
+    yield store.set(sid, sess, null);
+    yield new Promise(function (resolve) { setTimeout(resolve, 1000); });
+    let data = yield store.get(sid);
+    sess.should.deepEqual(data);
   }));
 };

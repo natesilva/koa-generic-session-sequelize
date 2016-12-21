@@ -45,6 +45,7 @@ app.use(session({
  - `syncTimeout` - If `sync` is `true`, how long to wait, in ms, for the sync to complete (default: `3000`)
  - `gcFrequency` - Do garbage collection after approximately this many requests. This deletes expired session data from the table. Set to `0` to never do garbage collection. (default: `10000`, or approximately every 10,000 requests)
  - `timestamps` - If true, the table will have `updatedAt` and `createdAt` columns. (default: `false`)
+ - `browserSessionLifetime` - How long, in ms, to remember sessions without a TTL — sessions that only last until the browser is closed. (default: `86400000`)
 
 ### Replication
 
