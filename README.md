@@ -4,7 +4,7 @@ Store Koa sessions in a database using Sequelize.
 
 ## Usage
 
-This session storage provider works with [koa-generic-session](https://github.com/koajs/generic-session) (session middleware for Koa) and with [koa-session-minimal](https://github.com/longztian/koa-session-minimal) (session middleware for Koa 2).
+This session storage provider works with [koa-generic-session](https://github.com/koajs/generic-session) (session middleware for Koa). It also works with [koa-session-minimal](https://github.com/longztian/koa-session-minimal), but koa-generic-session is recommended.
 
 It stores session data in a database defined by you, using the [Sequelize](http://docs.sequelizejs.com/) ORM.
 
