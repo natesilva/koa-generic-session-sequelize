@@ -2,6 +2,10 @@
 
 Store Koa sessions in a database using Sequelize.
 
+## Compatibility
+
+Sequelize 4.12.0 or higher is supported.
+
 ## Usage
 
 This session storage provider works with [koa-generic-session](https://github.com/koajs/generic-session) (session middleware for Koa). It also works with [koa-session-minimal](https://github.com/longztian/koa-session-minimal), but koa-generic-session is recommended.
