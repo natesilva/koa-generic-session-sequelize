@@ -1,4 +1,4 @@
-# koa-generic-session-sequelize
+# koa-generic-session-sequelize [![npm](https://img.shields.io/npm/v/koa-generic-session-sequelize.svg)](https://www.npmjs.com/package/koa-generic-session-sequelize) [![dependencies](https://img.shields.io/david/natesilva/koa-generic-session-sequelize.svg)](https://www.npmjs.com/package/koa-generic-session-sequelize) [![license](https://img.shields.io/github/license/natesilva/koa-generic-session-sequelize.svg)](https://github.com/natesilva/koa-generic-session-sequelize/blob/master/LICENSE)
 
 Store Koa sessions in a database using Sequelize.
 
