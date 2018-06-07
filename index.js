@@ -76,7 +76,7 @@ class SequelizeStore extends EventEmitter {
         where: {
           id: sid,
           expires: {
-            $gt: Math.floor(Date.now() / 1000)
+            [this.sequelize.Sequelize.Op.gt]: Math.floor(Date.now() / 1000)
           }
         }
       }).then(row => {
