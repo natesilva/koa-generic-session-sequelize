@@ -7,7 +7,8 @@ const koa = require('koa');
 const sequelize = new Sequelize({
   logging: false,
   dialect: 'sqlite',
-  storage: __dirname + '/example.db'
+  storage: __dirname + '/example.db',
+  operatorsAliases: false
 });
 
 const app = koa();

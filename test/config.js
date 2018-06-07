@@ -13,7 +13,8 @@ config.sqlite = {
   logging: false,
   dialect: 'sqlite',
   storage: tmp.tmpNameSync(),   // create a temp file for SQLite testing
-  deleteAfterTests: true        // and delete that temp file after testing
+  deleteAfterTests: true,       // and delete that temp file after testing
+  operatorsAliases: false
 };
 
 // Uncomment and edit any of the following to test against those DBs:
@@ -32,7 +33,8 @@ config.sqlite = {
 //   define: {
 //     charset: 'utf8mb4',
 //     collate: 'utf8mb4_unicode_ci'
-//   }
+//   },
+//   operatorsAliases: false
 // };
 
 // config.postgres = {
@@ -48,7 +50,8 @@ config.sqlite = {
 //   pool: {
 //     max: 50,
 //     min: 1
-//   }
+//   },
+//   operatorsAliases: false
 // };
 
 // config.mssql = {
@@ -64,5 +67,6 @@ config.sqlite = {
 //   pool: {
 //     max: 50,
 //     min: 1
-//   }
+//   },
+//   operatorsAliases: false
 // };
