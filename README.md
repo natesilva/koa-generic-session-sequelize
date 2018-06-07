@@ -8,6 +8,8 @@ Sequelize 4.12.0 or higher is supported.
 
 ## Usage
 
+**Notice: This is an older module that works best with `koa-generic-session`. However, most Koa apps today use the more modern [koa-session](https://github.com/koajs/session) library. Unfortunately, this module is not designed to work with that.**
+
 This session storage provider works with [koa-generic-session](https://github.com/koajs/generic-session) (session middleware for Koa). It also works with [koa-session-minimal](https://github.com/longztian/koa-session-minimal), but koa-generic-session is recommended.
 
 It stores session data in a database defined by you, using the [Sequelize](http://docs.sequelizejs.com/) ORM.
