@@ -119,7 +119,7 @@ class SequelizeStore extends EventEmitter {
   gc() {
     return this.waitForSync().then(() => {
       return this.Model.destroy(
-        { where: { expires: { $lte: Math.floor(Date.now() / 1000) } } }
+        { where: { expires: { [this.sequelize.Sequelize.Op.lte]: Math.floor(Date.now() / 1000) } } }
       );
     });
   }
