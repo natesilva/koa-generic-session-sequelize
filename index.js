@@ -99,7 +99,7 @@ class SequelizeStore extends EventEmitter {
 
     return this.waitForSync().then(() => {
       const expires = Math.floor((Date.now() + (Math.max(ttl, 0) || 0)) / 1000);
-      return this.Model.findOrInitialize({ where: { id: sid } })
+      return this.Model.findOrBuild({ where: { id: sid } })
         .then(function (result) {
           const instance = result[0];
           instance.data = JSON.stringify(sess);
