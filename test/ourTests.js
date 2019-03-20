@@ -24,11 +24,19 @@ module.exports = function (store, sequelize) {
     yield new Promise(resolve => { setTimeout(resolve, 1000); });
     let data = yield store.get(sid);
     should(data).not.be.ok();
-    data = yield sequelize.models.Session.findById(sid);
+    if (typeof sequelize.models.Session['findByPk'] === 'function') {
+      data = yield sequelize.models.Session.findByPk(sid);
+    } else {
+      data = yield sequelize.models.Session.findById(sid);
+    }
     should.exist(data);
     const destroyCount = yield store.gc();
     destroyCount.should.be.aboveOrEqual(1);
-    data = yield sequelize.models.Session.findById(sid);
+    if (typeof sequelize.models.Session['findByPk'] === 'function') {
+      data = yield sequelize.models.Session.findByPk(sid);
+    } else {
+      data = yield sequelize.models.Session.findById(sid);
+    }
     should(data).not.be.ok();
   }));
 };
