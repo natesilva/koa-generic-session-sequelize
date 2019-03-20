@@ -12,9 +12,9 @@ module.exports = config;
 config.sqlite = {
   logging: false,
   dialect: 'sqlite',
-  storage: tmp.tmpNameSync(),   // create a temp file for SQLite testing
-  deleteAfterTests: true,       // and delete that temp file after testing
-  operatorsAliases: false       // remove if using Sequelize v5
+  storage: tmp.tmpNameSync(), // create a temp file for SQLite testing
+  deleteAfterTests: true, // and delete that temp file after testing
+  operatorsAliases: false // remove if using Sequelize v5
 };
 
 // Uncomment and edit any of the following to test against those DBs:
@@ -34,7 +34,7 @@ config.sqlite = {
 //     charset: 'utf8mb4',
 //     collate: 'utf8mb4_unicode_ci'
 //   },
-//   operatorsAliases: false      // remove if using Sequelize v5
+//   operatorsAliases: false // remove if using Sequelize v5
 // };
 
 // config.postgres = {
@@ -45,13 +45,13 @@ config.sqlite = {
 //   password: '<POSTGRESQL PASSWORD>',
 //   database: '<POSTGRESQL DB NAME>',
 //   dialectOptions: {
-//     ssl: true                   // some PostgreSQL hosts require SSL
+//     ssl: true // some PostgreSQL hosts require SSL
 //   },
 //   pool: {
 //     max: 50,
 //     min: 1
 //   },
-//   operatorsAliases: false      // remove if using Sequelize v5
+//   operatorsAliases: false // remove if using Sequelize v5
 // };
 
 // config.mssql = {
@@ -62,11 +62,11 @@ config.sqlite = {
 //   password: '<MSSQL PASSWORD>',
 //   database: '<MSSQL DB NAME>',
 //   dialectOptions: {
-//     encrypt: true               // Azure, and some MS SQL servers need this
+//     encrypt: true // Azure, and some MS SQL servers need this
 //   },
 //   pool: {
 //     max: 50,
 //     min: 1
 //   },
-//   operatorsAliases: false      // remove if using Sequelize v5
+//   operatorsAliases: false // remove if using Sequelize v5
 // };

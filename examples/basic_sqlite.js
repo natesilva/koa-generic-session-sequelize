@@ -8,17 +8,19 @@ const sequelize = new Sequelize({
   logging: false,
   dialect: 'sqlite',
   storage: __dirname + '/example.db',
-  operatorsAliases: false  // remove if using Sequelize v5
+  operatorsAliases: false // remove if using Sequelize v5
 });
 
 const app = koa();
 app.keys = ['keys', 'keykeys'];
-app.use(session({
-  store: new SequelizeStore(
-    sequelize,            // pass your sequelize object as the first arg
-    {}                    // pass any config options for SequelizeStore as the second arg
-  )
-}));
+app.use(
+  session({
+    store: new SequelizeStore(
+      sequelize, // pass your sequelize object as the first arg
+      {} // pass any config options for SequelizeStore as the second arg
+    )
+  })
+);
 
 function get() {
   const session = this.session;
@@ -32,23 +34,23 @@ function remove() {
   this.body = 0;
 }
 
-function *regenerate() {
+function* regenerate() {
   get.call(this);
   yield this.regenerateSession();
   get.call(this);
 }
 
-app.use(function *() {
+app.use(function*() {
   switch (this.path) {
-  case '/get':
-    get.call(this);
-    break;
-  case '/remove':
-    remove.call(this);
-    break;
-  case '/regenerate':
-    yield regenerate.call(this);
-    break;
+    case '/get':
+      get.call(this);
+      break;
+    case '/remove':
+      remove.call(this);
+      break;
+    case '/regenerate':
+      yield regenerate.call(this);
+      break;
   }
 });
 

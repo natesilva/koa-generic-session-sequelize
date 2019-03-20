@@ -9,12 +9,12 @@ const config = require('./config');
 const Sequelize = require('sequelize');
 const SequelizeStore = require('../index.js');
 
-describe('test/allTests.js', function () {
+describe('test/allTests.js', function() {
   if (config.sqlite && config.sqlite.deleteAfterTests) {
-    after(function () {
-      this.timeout(5000);               // eslint-disable-line no-invalid-this
+    after(function() {
+      this.timeout(5000); // eslint-disable-line no-invalid-this
       // give SQLite time to release its lock on the file, then delete it
-      setTimeout(function () {
+      setTimeout(function() {
         if (fs.existsSync(config.sqlite.storage)) {
           try {
             fs.unlinkSync(config.sqlite.storage);
@@ -27,12 +27,15 @@ describe('test/allTests.js', function () {
   }
 
   // run the test suites once for each db engine
-  Object.keys(config).forEach(function (dbengine) {
-    describe(dbengine, function () {
+  Object.keys(config).forEach(function(dbengine) {
+    describe(dbengine, function() {
       const sequelize = new Sequelize(config[dbengine]);
-      const store = new SequelizeStore(sequelize, { sync: true, tableName: '_sess_test' });
+      const store = new SequelizeStore(sequelize, {
+        sync: true,
+        tableName: '_sess_test'
+      });
 
-      after(function () {
+      after(function() {
         sequelize.close();
       });
 

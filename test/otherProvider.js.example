@@ -8,9 +8,9 @@
 'use strict';
 
 const commonTests = require('./commonTests');
-const StoreProvider = require('koa-redis');     // or whatever store you are testing
+const StoreProvider = require('koa-redis'); // or whatever store you are testing
 
-describe('test/otherProvider.js', function () {
+describe('test/otherProvider.js', function() {
   const store = new StoreProvider(/* whatever options the store provider needs */);
   commonTests(store);
 });

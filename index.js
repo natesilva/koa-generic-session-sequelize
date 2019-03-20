@@ -12,27 +12,34 @@ class SequelizeStore extends EventEmitter {
 
     this.sequelize = sequelize;
 
-    this.options = Object.assign({
-      tableName: 'Sessions',
-      modelName: 'Session',
-      sync: true,               // if true, create the table if it doesn’t exist
-      syncTimeout: 3000,        // if sync is true, how long to wait for initial sync (ms)
-      gcFrequency: 10000,       // do garbage collection approx. every this many requests
-      timestamps: false,        // if true, add Sequelize updatedAt and createdAt columns
-      browserSessionLifetime: 86400 * 1000  // how long to remember sessions without a TTL
-    }, options || {});
+    this.options = Object.assign(
+      {
+        tableName: 'Sessions',
+        modelName: 'Session',
+        sync: true, // if true, create the table if it doesn’t exist
+        syncTimeout: 3000, // if sync is true, how long to wait for initial sync (ms)
+        gcFrequency: 10000, // do garbage collection approx. every this many requests
+        timestamps: false, // if true, add Sequelize updatedAt and createdAt columns
+        browserSessionLifetime: 86400 * 1000 // how long to remember sessions without a TTL
+      },
+      options || {}
+    );
 
-    this.Model = this.sequelize.define(this.options.modelName, {
-      id: { type: this.sequelize.Sequelize.STRING(100), primaryKey: true },
-      data: this.sequelize.Sequelize.TEXT,
-      expires: this.sequelize.Sequelize.BIGINT
-    }, {
-      tableName: this.options.tableName,
-      timestamps: this.options.timestamps,
-      deletedAt: false,
-      paranoid: false,
-      indexes: [{ fields: ['expires'] }]
-    });
+    this.Model = this.sequelize.define(
+      this.options.modelName,
+      {
+        id: { type: this.sequelize.Sequelize.STRING(100), primaryKey: true },
+        data: this.sequelize.Sequelize.TEXT,
+        expires: this.sequelize.Sequelize.BIGINT
+      },
+      {
+        tableName: this.options.tableName,
+        timestamps: this.options.timestamps,
+        deletedAt: false,
+        paranoid: false,
+        indexes: [{ fields: ['expires'] }]
+      }
+    );
 
     this.synced = false;
 
@@ -48,7 +55,9 @@ class SequelizeStore extends EventEmitter {
   }
 
   waitForSync() {
-    if (this.synced) { return Promise.resolve(); }
+    if (this.synced) {
+      return Promise.resolve();
+    }
 
     return new Promise((resolve, reject) => {
       const end = Date.now() + this.options.syncTimeout;
@@ -69,7 +78,9 @@ class SequelizeStore extends EventEmitter {
   get(sid) {
     return this.waitForSync().then(() => {
       if (this.options.gcFrequency > 0) {
-        if (getRandomInt(1, this.options.gcFrequency) === 1) { this.gc(); }
+        if (getRandomInt(1, this.options.gcFrequency) === 1) {
+          this.gc();
+        }
       }
 
       return this.Model.findOne({
@@ -80,7 +91,9 @@ class SequelizeStore extends EventEmitter {
           }
         }
       }).then(row => {
-        if (!row || !row.data) { return null; }
+        if (!row || !row.data) {
+          return null;
+        }
         return JSON.parse(row.data);
       });
     });
@@ -99,14 +112,12 @@ class SequelizeStore extends EventEmitter {
 
     return this.waitForSync().then(() => {
       const expires = Math.floor((Date.now() + (Math.max(ttl, 0) || 0)) / 1000);
-      return this.Model.findOrBuild({ where: { id: sid } })
-        .then(function (result) {
-          const instance = result[0];
-          instance.data = JSON.stringify(sess);
-          instance.expires = expires;
-          return instance.save();
-        })
-        ;
+      return this.Model.findOrBuild({ where: { id: sid } }).then(function(result) {
+        const instance = result[0];
+        instance.data = JSON.stringify(sess);
+        instance.expires = expires;
+        return instance.save();
+      });
     });
   }
 
@@ -118,9 +129,11 @@ class SequelizeStore extends EventEmitter {
 
   gc() {
     return this.waitForSync().then(() => {
-      return this.Model.destroy(
-        { where: { expires: { [this.sequelize.Sequelize.Op.lte]: Math.floor(Date.now() / 1000) } } }
-      );
+      return this.Model.destroy({
+        where: {
+          expires: { [this.sequelize.Sequelize.Op.lte]: Math.floor(Date.now() / 1000) }
+        }
+      });
     });
   }
 }
