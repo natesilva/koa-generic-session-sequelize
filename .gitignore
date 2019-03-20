@@ -37,3 +37,5 @@ jspm_packages
 .node_repl_history
 config.mine.js
 example.db
+
+*.sublime-workspace
