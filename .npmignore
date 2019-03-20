@@ -1,0 +1,5 @@
+test
+examples
+*.sublime-*
+.prettierrc.json
+*.tgz
