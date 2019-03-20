@@ -8,7 +8,7 @@ const sequelize = new Sequelize({
   logging: false,
   dialect: 'sqlite',
   storage: __dirname + '/example.db',
-  operatorsAliases: false
+  operatorsAliases: false  // remove if using Sequelize v5
 });
 
 const app = koa();
